@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { axiosClient } from './axiosClient';
 
 type City = {
   id: number;
@@ -22,13 +22,11 @@ type Response = {
   list: Array<WeatherItem>;
 };
 
-const LIMIT = 7;
+const LIMIT = 14;
 export const getWeather = async (): Promise<Response | undefined> => {
-  console.error('getWeather');
-  console.error(import.meta.env);
   try {
-    const result = await axios.get(
-      `${import.meta.env.VITE_WEATHER_URL}?id=${import.meta.env.VITE_WEATHER_CITY_ID}&cnt=${LIMIT}&appid=${import.meta.env.VITE_WEATHER_API_KEY}`,
+    const result = await axiosClient.get(
+      `/data/2.5/forecast?id=${import.meta.env.VITE_WEATHER_CITY_ID}&cnt=${LIMIT}&appid=${import.meta.env.VITE_WEATHER_API_KEY}`,
     );
     return result.data;
   } catch (error) {
