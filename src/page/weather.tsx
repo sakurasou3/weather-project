@@ -9,6 +9,7 @@ export const Weather = () => {
   const [weather, setWeather] = useState<Array<WeatherItem>>([]);
   useEffect(() => {
     getWeather().then((result) => {
+      console.log('🚀 ~ getWeather ~ result:', result);
       if (result) {
         // 今の時間以降、MAX7つの予報を取得
         const firstItem = result.list.findIndex(
@@ -49,6 +50,9 @@ export const Weather = () => {
                 objectFit="cover"
                 src={`${import.meta.env.VITE_WEATHER_IMAGE_URL}/img/wn/${w.weather[0].icon}@2x.png`}
               />
+              <Text textAlign="center" py={1} color="teal.500">
+                {w.weather[0].main}
+              </Text>
             </Flex>
           );
         })}
